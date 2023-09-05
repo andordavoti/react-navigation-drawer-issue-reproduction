@@ -31,14 +31,10 @@ const SecondTabScreen = () => {
 
 const TopTabsScreen = () => {
   const isOpen = useDrawerStatus() === "open";
-  const { setDrawerIsClosed, setDrawerIsOpen } = useDrawerOpenContext();
+  const { setDrawerOpen } = useDrawerOpenContext();
 
   useEffect(() => {
-    if (isOpen) {
-      setDrawerIsOpen();
-    } else {
-      setDrawerIsClosed();
-    }
+    setDrawerOpen(isOpen);
   }, [isOpen]);
 
   return (

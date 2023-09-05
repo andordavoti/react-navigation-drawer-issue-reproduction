@@ -8,8 +8,7 @@ import React, {
 
 interface DrawerOpenContextProps {
   drawerOpen: boolean;
-  setDrawerIsOpen: () => void;
-  setDrawerIsClosed: () => void;
+  setDrawerOpen: (val: boolean) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -25,11 +24,8 @@ const DrawerOpenProvider: FC<Props> = ({ children }) => {
     <DrawerOpenContext.Provider
       value={{
         drawerOpen,
-        setDrawerIsOpen: () => {
-          setDrawerOpen(true);
-        },
-        setDrawerIsClosed: () => {
-          setDrawerOpen(false);
+        setDrawerOpen: (value) => {
+          setDrawerOpen(value);
         },
       }}
     >
