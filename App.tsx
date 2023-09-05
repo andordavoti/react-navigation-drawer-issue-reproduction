@@ -65,18 +65,10 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const DrawerToggleButton1 = () => {
   const navigation = useNavigation();
   const opacity = useSharedValue(1);
-  const opening = useRef(false);
-  const status = useDrawerStatus();
 
-  useEffect(() => {
-    opening.current = false;
-  }, [status]);
-
-  const style = useAnimatedStyle(() => {
-    return {
-      opacity: withTiming(opacity.value),
-    };
-  });
+  const style = useAnimatedStyle(() => ({
+    opacity: withTiming(opacity.value),
+  }));
 
   return (
     <AnimatedPressable
@@ -86,9 +78,7 @@ const DrawerToggleButton1 = () => {
       }}
       onPressOut={() => {
         opacity.value = 1;
-        if (opening.current) return;
         (navigation as any).openDrawer();
-        opening.current = true;
       }}
     >
       <MaterialCommunityIcons name="menu" size={24} style={{ margin: 3 }} />
