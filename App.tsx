@@ -10,7 +10,11 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import DrawerOpenProvider, { useDrawerOpenContext } from "./DrawerContext";
 import { useEffect, useRef } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import Animated from "react-native-reanimated";
 
 const Drawer = createDrawerNavigator();
@@ -65,8 +69,8 @@ const DrawerToggleButton1 = () => {
   const status = useDrawerStatus();
 
   useEffect(() => {
-    if(status === "open") {
-      opening.current = false;
+    if (status === "open") {
+      opening.current = true;
     } else {
       opening.current = false;
     }
@@ -76,23 +80,22 @@ const DrawerToggleButton1 = () => {
     return {
       opacity: withTiming(opacity.value),
     };
-  })
+  });
 
   return (
     <AnimatedPressable
-      style={[{ marginLeft: 16 }, style]}
+      style={[{ marginHorizontal: 11 }, style]}
       onPressIn={() => {
         opacity.value = 0.3;
       }}
       onPressOut={() => {
         opacity.value = 1;
-      
-        if(opening.current) return;
+        if (opening.current) return;
         (navigation as any).openDrawer();
         opening.current = true;
       }}
     >
-      <MaterialCommunityIcons name="menu" size={24} />
+      <MaterialCommunityIcons name="menu" size={24} style={{ margin: 3 }} />
     </AnimatedPressable>
   );
 };
