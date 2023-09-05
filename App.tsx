@@ -1,10 +1,11 @@
 import "react-native-gesture-handler";
 import {
+  DrawerToggleButton,
   createDrawerNavigator,
   useDrawerStatus,
 } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
-import { View, Text, StyleSheet } from "react-native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { View, Text, StyleSheet, Button, TouchableOpacity, Pressable } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import DrawerOpenProvider, { useDrawerOpenContext } from "./DrawerContext";
@@ -64,6 +65,7 @@ const Navigation = () => {
       <Drawer.Navigator
         screenOptions={{
           drawerType: "front",
+          headerLeft: DrawerToggleButton1,
           swipeEdgeWidth: 100,
           gestureHandlerProps: {
             activateAfterLongPress: drawerOpen ? undefined : 1,
@@ -95,3 +97,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+const DrawerToggleButton1 = () => {
+  const navigation = useNavigation();
+
+  return <Pressable style={{backgroundColor: "red"}} onPressOut={() => {
+    (navigation as any).openDrawer()
+  }}
+  >
+    <Text>Toggle</Text>
+  </Pressable>
+}
