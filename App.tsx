@@ -8,8 +8,10 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import DrawerOpenProvider, { useDrawerOpenContext } from "./DrawerContext";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 
 const Drawer = createDrawerNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -54,18 +56,42 @@ const RegularDrawerScreen = () => {
   );
 };
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
 const DrawerToggleButton1 = () => {
   const navigation = useNavigation();
+  const opacity = useSharedValue(1);
+  const opening = useRef(false);
+  const status = useDrawerStatus();
+
+  useEffect(() => {
+    if(status === "open") {
+      opening.current = true;
+    } else {
+      opening.current = false;
+    }
+  }, [status]);
+
+  const style = useAnimatedStyle(() => {
+    return {
+      opacity: withTiming(opacity.value),
+    };
+  })
 
   return (
-    <Pressable
-      style={{ marginLeft: 10 }}
+    <AnimatedPressable
+      style={[{ marginLeft: 16 }, style]}
+      onPressIn={() => {
+        opacity.value = 0.3;
+      }}
       onPressOut={() => {
+        opacity.value = 1;
+        if(opening.current) return;
         (navigation as any).openDrawer();
       }}
     >
       <MaterialCommunityIcons name="menu" size={24} />
-    </Pressable>
+    </AnimatedPressable>
   );
 };
 
