@@ -66,7 +66,7 @@ const DrawerToggleButton1 = () => {
 
   useEffect(() => {
     if(status === "open") {
-      opening.current = true;
+      opening.current = false;
     } else {
       opening.current = false;
     }
@@ -86,8 +86,10 @@ const DrawerToggleButton1 = () => {
       }}
       onPressOut={() => {
         opacity.value = 1;
+      
         if(opening.current) return;
         (navigation as any).openDrawer();
+        opening.current = true;
       }}
     >
       <MaterialCommunityIcons name="menu" size={24} />
