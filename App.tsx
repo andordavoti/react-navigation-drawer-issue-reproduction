@@ -1,15 +1,15 @@
 import "react-native-gesture-handler";
 import {
-  DrawerToggleButton,
   createDrawerNavigator,
   useDrawerStatus,
 } from "@react-navigation/drawer";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { View, Text, StyleSheet, Button, TouchableOpacity, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import DrawerOpenProvider, { useDrawerOpenContext } from "./DrawerContext";
 import { useEffect } from "react";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -54,6 +54,21 @@ const RegularDrawerScreen = () => {
   );
 };
 
+const DrawerToggleButton1 = () => {
+  const navigation = useNavigation();
+
+  return (
+    <Pressable
+      style={{ marginLeft: 10 }}
+      onPressOut={() => {
+        (navigation as any).openDrawer();
+      }}
+    >
+      <MaterialCommunityIcons name="menu" size={24} />
+    </Pressable>
+  );
+};
+
 const Navigation = () => {
   const { drawerOpen } = useDrawerOpenContext();
   return (
@@ -93,14 +108,3 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-
-const DrawerToggleButton1 = () => {
-  const navigation = useNavigation();
-
-  return <Pressable style={{backgroundColor: "red"}} onPressOut={() => {
-    (navigation as any).openDrawer()
-  }}
-  >
-    <Text>Toggle</Text>
-  </Pressable>
-}
