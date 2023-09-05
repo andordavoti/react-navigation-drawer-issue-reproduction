@@ -69,11 +69,7 @@ const DrawerToggleButton1 = () => {
   const status = useDrawerStatus();
 
   useEffect(() => {
-    if (status === "open") {
-      opening.current = true;
-    } else {
-      opening.current = false;
-    }
+    opening.current = status === "open";
   }, [status]);
 
   const style = useAnimatedStyle(() => {
