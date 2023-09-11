@@ -2,7 +2,6 @@ import React, {
   FC,
   createContext,
   useContext,
-  useEffect,
   useState,
 } from "react";
 

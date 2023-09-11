@@ -8,7 +8,7 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import DrawerOpenProvider, { useDrawerOpenContext } from "./DrawerContext";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   useAnimatedStyle,
@@ -62,7 +62,7 @@ const RegularDrawerScreen = () => {
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-const DrawerToggleButton1 = () => {
+const DrawerToggleButton = () => {
   const navigation = useNavigation();
   const opacity = useSharedValue(1);
 
@@ -93,8 +93,7 @@ const Navigation = () => {
       <Drawer.Navigator
         screenOptions={{
           drawerType: "front",
-          headerLeft: DrawerToggleButton1,
-          swipeEdgeWidth: 100,
+          headerLeft: DrawerToggleButton,
           gestureHandlerProps: {
             activateAfterLongPress: drawerOpen ? undefined : 1,
           },
